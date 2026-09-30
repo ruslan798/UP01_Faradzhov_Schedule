@@ -1,0 +1,91 @@
+<Window x:Class="UP01_Faradzhov_Schedule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Сервис автоматизированного составления расписания" 
+        Height="760" Width="1220"
+        MinWidth="950" MinHeight="620"
+        WindowStartupLocation="CenterScreen"
+        Icon="res/app_logo.png"
+        Background="{DynamicResource BackgroundColor}"
+        Closing="Window_Closing">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{DynamicResource PrimaryDarkColor}" Padding="15,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnBack" Content="← Назад" 
+                            Width="85" Height="30" Margin="0,0,10,0"
+                            Background="{DynamicResource PrimaryColor}" 
+                            Foreground="White" FontWeight="SemiBold"
+                            Click="btnBack_Click" Visibility="Collapsed"/>
+                    <Image Source="res/app_logo.png" Width="26" Height="26" Margin="0,0,10,0"/>
+                </StackPanel>
+
+                <TextBlock x:Name="TitleTB" Grid.Column="1" 
+                           Text="Авторизация" 
+                           VerticalAlignment="Center" 
+                           FontSize="16" FontWeight="Bold" 
+                           Foreground="White"
+                           TextTrimming="CharacterEllipsis"
+                           Margin="5,0,15,0"
+                           ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnThemeToggle" Content="🌓 Тема" 
+                            Width="90" Height="30" Margin="0,0,10,0"
+                            Background="{DynamicResource PrimaryColor}" 
+                            Foreground="White" FontWeight="SemiBold"
+                            Click="btnThemeToggle_Click"/>
+
+                    <TextBlock x:Name="UserTB" Text="Вход в систему" 
+                               Foreground="White" VerticalAlignment="Center" 
+                               FontSize="13" Margin="0,0,12,0"
+                               MaxWidth="200" TextTrimming="CharacterEllipsis"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+
+                    <Button x:Name="btnLogout" Content="Выход" 
+                            Width="80" Height="30"
+                            Background="#D9534F" Foreground="White" FontWeight="SemiBold"
+                            Click="btnLogout_Click" Visibility="Collapsed"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" 
+               NavigationUIVisibility="Hidden" 
+               Navigated="MainFrame_Navigated"/>
+
+        <Border Grid.Row="2" Background="{DynamicResource SurfaceColor}" 
+                BorderBrush="{DynamicResource BorderBrushColor}" BorderThickness="0,1,0,0" Padding="15,0">
+            <Grid VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0">
+                    <TextBlock Text="● " Foreground="#28A745" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock Text="База данных: DB_Faradzhov_Schedule (MS SQL Server) | Студент: Фараджов Р.Э. (4ИСИП-523)" 
+                               FontSize="12" Foreground="{DynamicResource MutedTextColor}" VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis"/>
+                </StackPanel>
+
+                <TextBlock x:Name="TimeTB" Grid.Column="1" 
+                           Text="00:00:00" FontSize="13" FontWeight="SemiBold" 
+                           Foreground="{DynamicResource TextColor}" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
