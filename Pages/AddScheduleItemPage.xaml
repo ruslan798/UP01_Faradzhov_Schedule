@@ -1,0 +1,91 @@
+<Page x:Class="UP01_Faradzhov_Schedule.Pages.AddScheduleItemPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Назначение занятия в расписание">
+
+    <Grid Background="{DynamicResource BackgroundColor}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Border Background="{DynamicResource SurfaceColor}" 
+                    BorderBrush="{DynamicResource BorderBrushColor}" 
+                    BorderThickness="1" CornerRadius="10" 
+                    Padding="30,25" Width="550" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Margin="20">
+                <StackPanel>
+                    <TextBlock x:Name="txtHeader" Text="Добавление занятия в расписание" 
+                               FontSize="18" FontWeight="Bold" 
+                               HorizontalAlignment="Center" 
+                               Foreground="{DynamicResource PrimaryDarkColor}"/>
+
+                    <TextBlock Text="Автоматизированный контроль пересечений и занятости" 
+                               FontSize="12" Foreground="{DynamicResource MutedTextColor}" 
+                               HorizontalAlignment="Center" Margin="0,4,0,18"/>
+
+                    <TextBlock Text="День недели *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                    <ComboBox x:Name="cmbDay" Height="34" Margin="0,0,0,10">
+                        <ComboBoxItem Content="Понедельник" IsSelected="True"/>
+                        <ComboBoxItem Content="Вторник"/>
+                        <ComboBoxItem Content="Среда"/>
+                        <ComboBoxItem Content="Четверг"/>
+                        <ComboBoxItem Content="Пятница"/>
+                        <ComboBoxItem Content="Суббота"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Временной слот (пара) *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                    <ComboBox x:Name="cmbSlot" Height="34" Margin="0,0,0,10" DisplayMemberPath="DisplayTime" SelectedValuePath="Id"/>
+
+                    <TextBlock Text="Учебная группа *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                    <ComboBox x:Name="cmbGroup" Height="34" Margin="0,0,0,10" DisplayMemberPath="GroupName" SelectedValuePath="Id"/>
+
+                    <TextBlock Text="Дисциплина *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                    <ComboBox x:Name="cmbSubject" Height="34" Margin="0,0,0,10" DisplayMemberPath="Name" SelectedValuePath="Id"/>
+
+                    <TextBlock Text="Преподаватель *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                    <ComboBox x:Name="cmbTeacher" Height="34" Margin="0,0,0,10" DisplayMemberPath="FullName" SelectedValuePath="Id"/>
+
+                    <TextBlock Text="Аудитория *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                    <ComboBox x:Name="cmbClassroom" Height="34" Margin="0,0,0,10" DisplayMemberPath="RoomNumber" SelectedValuePath="Id"/>
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                            <TextBlock Text="Тип занятия *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                            <ComboBox x:Name="cmbLessonType" Height="34">
+                                <ComboBoxItem Content="Лекция" IsSelected="True"/>
+                                <ComboBoxItem Content="Практическое занятие"/>
+                                <ComboBoxItem Content="Лабораторная работа"/>
+                                <ComboBoxItem Content="Семинар"/>
+                                <ComboBoxItem Content="Консультация"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                            <TextBlock Text="Тип недели *" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource TextColor}"/>
+                            <ComboBox x:Name="cmbWeekType" Height="34">
+                                <ComboBoxItem Content="Все недели" IsSelected="True"/>
+                                <ComboBoxItem Content="Числитель"/>
+                                <ComboBoxItem Content="Знаменатель"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
+
+                    <Button x:Name="btnSave" Content="Сохранить занятие" 
+                            Height="38" Margin="0,10,0,10"
+                            Background="{DynamicResource PrimaryColor}" 
+                            Foreground="White" FontWeight="Bold" FontSize="14"
+                            Click="btnSave_Click"/>
+
+                    <Button Content="Отмена" 
+                            Height="34" Background="Transparent" 
+                            BorderBrush="{DynamicResource BorderBrushColor}" BorderThickness="1"
+                            Foreground="{DynamicResource TextColor}"
+                            Click="btnCancel_Click"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</Page>
