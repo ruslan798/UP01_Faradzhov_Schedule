@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Схема базы данных DB_Faradzhov_Schedule</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h2 {
+      color: #233E76;
+      margin-bottom: 5px;
+    }
+    p {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .mermaid-container {
+      background: #fdfdfd;
+      border: 1px solid #dcdcdc;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      max-width: 95vw;
+    }
+  </style>
+</head>
+<body>
+  <h2>СХЕМА СВЯЗЕЙ БАЗЫ ДАННЫХ (ER-ДИАГРАММА)</h2>
+  <p>База данных: <b>DB_Faradzhov_Schedule</b> (СУБД Microsoft SQL Server, 3НФ) | Студент: <b>Фараджов Р.Э. (4ИСИП-523)</b></p>
+
+  <div class="mermaid-container">
+    <pre class="mermaid">
+erDiagram
+    user_account ||--o{ teacher : "привязан (0..1:N)"
+    department ||--o{ teacher : "включает (1:N)"
+    department ||--o{ study_group : "курирует (1:N)"
+    department ||--o{ subject : "закрепляет (1:N)"
+    time_slot ||--o{ schedule_item : "задает время (1:N)"
+    study_group ||--o{ schedule_item : "обучается (1:N)"
+    subject ||--o{ schedule_item : "изучается (1:N)"
+    teacher ||--o{ schedule_item : "проводит (1:N)"
+    classroom ||--o{ schedule_item : "размещает (1:N)"
+
+    user_account {
+        int id PK "IDENTITY"
+        nvarchar login "UNIQUE"
+        nvarchar password_hash "SHA-1"
+        nvarchar role "Admin / User"
+        nvarchar full_name "ФИО"
+        nvarchar email "Email"
+        nvarchar phone "Телефон"
+        nvarchar photo "Путь к фото"
+    }
+
+    department {
+        int id PK "IDENTITY"
+        nvarchar name "Название отделения"
+        nvarchar code "Код (ИСИП, КСК)"
+        nvarchar head_name "Заведующий"
+    }
+
+    teacher {
+        int id PK "IDENTITY"
+        int user_id FK "Учетная запись"
+        int department_id FK "Отделение"
+        nvarchar full_name "ФИО преподавателя"
+        nvarchar academic_degree "Степень / Должность"
+        nvarchar email "Email"
+        nvarchar phone "Телефон"
+        nvarchar photo "Фото"
+    }
+
+    classroom {
+        int id PK "IDENTITY"
+        nvarchar room_number "Номер аудитории"
+        nvarchar building "Корпус"
+        int capacity "Вместимость"
+        nvarchar room_type "Тип (компьютерный/лекция)"
+        bit has_projector "Проектор"
+    }
+
+    study_group {
+        int id PK "IDENTITY"
+        nvarchar group_name "Название (4ИСИП-523)"
+        int department_id FK "Отделение"
+        int course_number "Курс (1-4)"
+        int student_count "Кол-во студентов"
+    }
+
+    subject {
+        int id PK "IDENTITY"
+        nvarchar name "Дисциплина"
+        int total_hours "Академические часы"
+        int department_id FK "Отделение"
+    }
+
+    time_slot {
+        int id PK "IDENTITY"
+        int pair_number "Номер пары (1-6)"
+        nvarchar start_time "Начало (08:30)"
+        nvarchar end_time "Окончание (10:00)"
+    }
+
+    schedule_item {
+        int id PK "IDENTITY"
+        nvarchar day_of_week "День недели"
+        int time_slot_id FK "Пара"
+        int group_id FK "Группа"
+        int subject_id FK "Дисциплина"
+        int teacher_id FK "Преподаватель"
+        int classroom_id FK "Аудитория"
+        nvarchar lesson_type "Тип (Лекция/Лаб)"
+        nvarchar week_type "Неделя (Все/Числитель)"
+        nvarchar status "Статус (Утверждено)"
+        datetime created_at "Дата создания"
+    }
+    </pre>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      themeVariables: {
+        primaryColor: '#e3f2fd',
+        primaryBorderColor: '#0198AF',
+        primaryTextColor: '#233E76',
+        lineColor: '#0198AF'
+      }
+    });
+  </script>
+</body>
+</html>
